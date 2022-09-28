@@ -1,8 +1,6 @@
 pipeline {
   
-    agent{
-        slave
-    }
+    agent 'slave'
     
     stages {
         stage('First Stage') {
