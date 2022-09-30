@@ -1,8 +1,5 @@
 pipeline {
-    agent any
-
-
-    agent{
+     agent{
         label 'slave'
     }
     
