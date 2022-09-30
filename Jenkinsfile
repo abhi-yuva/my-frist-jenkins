@@ -1,21 +1,101 @@
 pipeline {
-    agent slave
+    agent any
 
-    stages {
-        stage('First Stage') {
-            steps {
-                echo "this is my frist stage"
+
+    agent{
+        label 'slave'
+    }
+    
+    parameters {
+        choice choices: ['dev','stage','prod'], description: 'My Environments', name: 'env'
+    }
+    stages{
+        stage ('Build') {
+            steps{
+                script{
+                    // this is for dev environment
+                    if (params.env == 'dev'){
+                        echo 'This is my'+ ${params.env}+ 'Environmet'
+                        echo 'I am running in'+ ${params.env} + 'Evnironment'
+
+                    }
+
+                    if (params.env == 'stage'){
+                        echo 'This is my'+ ${params.env}+ 'Environmet'
+                        echo 'I am running in'+ ${params.env} + 'Evnironment'
+
+                    }
+
+                    if (params.env == 'prod'){
+                        echo  " this is my ${params.env} Environment"
+                        echo  "I am running in ${params.env} Evnironment"
+
+                    }
+                }
             }
         }
-        stage('Second Stage') {
-            steps {
-                echo "this is my frist stage"
+
+        stage ('Package') {
+            steps{
+                script{
+                    // this is for dev environment
+                    if (params.env == 'dev'){
+                        echo 'This is my'+ ${params.env}+ 'Environmet'
+                        echo 'I am running in'+ ${params.env} + 'Evnironment'
+
+                    }
+
+                    if (params.env == 'stage'){
+                        echo 'This is my'+ ${params.env}+ 'Environmet'
+                        echo 'I am running in'+ ${params.env} + 'Evnironment'
+
+                    }
+
+                    if (params.env == 'prod'){
+                        echo  " this is my ${params.env} Environment"
+                        echo  "I am running in ${params.env} Evnironment"
+
+                    }
+                }
+            }
+        }
+
+        stage ('deploy') {
+            steps{
+                script{
+                    // this is for dev environment
+                    if (params.env == 'dev'){
+                        echo 'This is my'+ ${params.env}+ 'Environmet'
+                        echo 'I am running in'+ ${params.env} + 'Evnironment'
+
+                    }
+
+                    if (params.env == 'stage'){
+                        echo 'This is my'+ ${params.env}+ 'Environmet'
+                        echo 'I am running in'+ ${params.env} + 'Evnironment'
+
+                    }
+
+                    if (params.env == 'prod'){
+                        echo  " this is my ${params.env} Environment"
+                        echo  "I am running in ${params.env} Evnironment"
+
+                    }
+                }
+            }
+        }
+    }
+    post {
+        success{
+            script{
+                echo "My ${params.env} Build Was Sucess"
+            }
+        }
+
+        failure{
+            script{
+                echo "My ${params.env} Build Was Failed"
             }
         }
     }
 }
-
-
-
-
-
