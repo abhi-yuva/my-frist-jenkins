@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    agent{
+        lable 'slave'
+    }
+
     stages {
         stage('First Stage') {
             steps {

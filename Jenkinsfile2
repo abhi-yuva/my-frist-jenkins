@@ -1,0 +1,47 @@
+pipeline{
+    agent any
+
+    parameters{
+        choice choices: ['master', 'qa'], description: 'Choose Environment', name: 'env'
+    }
+
+
+    stages{
+        stage("SCM"){
+            steps{
+                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master'], [name: '*/qa']], extensions: [], userRemoteConfigs: [[credentialsId: 'ssh-jenkins', url: 'git@bitbucket.org:SpaceAgeTeam/geofence-fe-react.git']]]
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            when {
+                expression { params.env == 'master' }
+            }
+            environment {
+                scannerHome = tool 'sonar-scanner'
+            }
+            steps{
+                withSonarQubeEnv('sonar-scanner') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                    }
+            }
+
+        }   
+
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'sonar-scanner';
+            when {
+                expression { params.env == 'qa' }
+            }
+            environment {
+                scannerHome = tool 'sonar-scanner'
+            }
+            steps{
+                withSonarQubeEnv('sonar-scanner') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                    }
+            }
+
+        }      
+    }
+}
