@@ -4,7 +4,8 @@ pipeline{
     stages{
         stage('Connect to Git'){
             steps{
-                git url: 'https://github.com/abhi-yuva/maven.git' , branch:'main', credentaialsId: 'abhi-yuva'
+                git url: 'https://github.com/abhi-yuva/maven.git' , branch:'main', 
+                credentialsId: 'abhi-yuva'
 
                 }
         }
