@@ -4,8 +4,9 @@ pipeline{
     stages{
         stage('Connect to Git'){
             steps{
-                sh 'checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'abhi-yuva', url: 'https://github.com/abhi-yuva/maven.git']])'
-            }
+                git url: 'https://github.com/abhi-yuva/maven.git' , branch:'main', credentaialsId: 'abhi-yuva'
+
+                }
         }
 
         stage('Second Stage'){
