@@ -21,11 +21,11 @@ pipeline{
             }
         }
 
-        stage('Third Stage'){
-            steps{
-                sh 'mvn ttest'
+        post{
+            success{
+                junit 'target/surefire-reports/**/*.xml'
             }
-
         }
+
     }
 }
