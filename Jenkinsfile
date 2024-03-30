@@ -14,7 +14,7 @@ pipeline {
                 echo "this is my frist stage"
             }
             post {
-                failure {
+                success {
                     mail subject: 'build stage failed',
                          from: 'devopsbyabhi@gmail.com',
                          to: 'devopsbyabhi@gmail.com',
